@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "title": "Top Fashion Trends for 2026",
+    "category": "Fashion",
+    "excerpt": "Discover the latest fashion trends that will define the upcoming year.",
+    "image": "https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80",
+    "content": "Full article content here...",
+    "date": "2026-02-04"
+  },
+  {
+    "id": 2,
+    "title": "Beauty Secrets from Asia",
+    "category": "Beauty",
+    "excerpt": "Uncover the beauty routines and tips from top influencers in Asia.",
+    "image": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80",
+    "content": "Full article content here...",
+    "date": "2026-02-03"
+  },
+  {
+    "id": 3,
+    "title": "Hidden Gems in Southeast Asia",
+    "category": "Travel",
+    "excerpt": "Explore lesser-known destinations that offer unique experiences.",
+    "image": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80",
+    "content": "Full article content here...",
+    "date": "2026-02-02"
+  },
+  {
+    "id": 4,
+    "title": "Delicious Street Food Adventures",
+    "category": "Food",
+    "excerpt": "A guide to the best street food spots across Asia.",
+    "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80",
+    "content": "Full article content here...",
+    "date": "2026-02-01"
+  },
+  {
+    "id": 5,
+    "title": "Wellness and Mindfulness Tips",
+    "category": "Wellness",
+    "excerpt": "Practical tips for maintaining a balanced and healthy lifestyle.",
+    "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80",
+    "content": "Full article content here...",
+    "date": "2026-01-31"
+  },
+  {
+    "id": 6,
+    "title": "Tech Gadgets for Modern Living",
+    "category": "Tech",
+    "excerpt": "The latest gadgets that enhance your daily life.",
+    "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80",
+    "content": "Full article content here...",
+    "date": "2026-01-30"
+  }
+]

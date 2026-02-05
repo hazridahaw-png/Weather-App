@@ -1,0 +1,164 @@
+[
+  {
+    "id": 1,
+    "name": "Cottagecore",
+    "description": "Cottagecore is a lifestyle and aesthetic centered around rural, agrarian life. It emphasizes simplicity, self-sufficiency, and a connection to nature. Think floral dresses, gardening, baking, and cozy evenings by the fireplace.",
+    "image": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80",
+    "colorPalette": ["#8B7355", "#D4A574", "#F5F5DC", "#228B22", "#8FBC8F"],
+    "outfitIdeas": [
+      "Floral sundresses with lace details",
+      "Denim overalls and work boots",
+      "Linen button-up shirts",
+      "Wide-brimmed sun hats",
+      "Canvas aprons for gardening"
+    ],
+    "bookRecommendations": [
+      "The Secret Garden by Frances Hodgson Burnett",
+      "Anne of Green Gables by L.M. Montgomery",
+      "The Cottage Tales of Beatrix Potter",
+      "Walden by Henry David Thoreau",
+      "The Herbal Medicine-Maker's Handbook by James A. Duke"
+    ],
+    "recipePairings": [
+      "Fresh berry scones with clotted cream",
+      "Herbal teas and wildflower honey",
+      "Homemade vegetable soup with garden herbs",
+      "Apple cider vinegar salad dressing",
+      "Fresh bread with butter and jam"
+    ],
+    "mood": "Peaceful, nostalgic, grounded",
+    "season": "Spring/Summer"
+  },
+  {
+    "id": 2,
+    "name": "Minimalist",
+    "description": "Minimalism focuses on living with less. It's about intentionality, quality over quantity, and creating space for what truly matters. Clean lines, neutral colors, and functional design define this aesthetic.",
+    "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80",
+    "colorPalette": ["#FFFFFF", "#F5F5F5", "#000000", "#808080", "#C0C0C0"],
+    "outfitIdeas": [
+      "Monochrome capsule wardrobe",
+      "Tailored blazers and trousers",
+      "White button-down shirts",
+      "Clean sneakers or loafers",
+      "Timeless trench coats"
+    ],
+    "bookRecommendations": [
+      "The Life-Changing Magic of Tidying Up by Marie Kondo",
+      "Less Is More by Jason Hickel",
+      "The Minimalist Home by Joshua Becker",
+      "Goodbye, Things by Fumio Sasaki",
+      "Essentialism by Greg McKeown"
+    ],
+    "recipePairings": [
+      "Simple green salads with olive oil",
+      "Oatmeal with fresh fruit",
+      "Grilled chicken with steamed vegetables",
+      "Smoothies with minimal ingredients",
+      "Herbal tea with lemon"
+    ],
+    "mood": "Calm, focused, intentional",
+    "season": "Year-round"
+  },
+  {
+    "id": 3,
+    "name": "Dark Academia",
+    "description": "Dark Academia draws inspiration from classic literature, Gothic architecture, and intellectual pursuits. It combines scholarly aesthetics with moody, atmospheric elements. Think tweed jackets, vintage books, and candlelit study sessions.",
+    "image": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80",
+    "colorPalette": ["#2F1B14", "#8B4513", "#DAA520", "#800080", "#4B0082"],
+    "outfitIdeas": [
+      "Tweed blazers and waistcoats",
+      "Oxford shirts and chinos",
+      "Cable knit sweaters",
+      "Leather brogues",
+      "Academic robes and scarves"
+    ],
+    "bookRecommendations": [
+      "Ninth House by Leigh Bardugo",
+      "Bunny by Mona Awad",
+      "The Maidens by Alex Michaelides",
+      "Catherine House by Elisabeth Thomas",
+      "The Atlas Six by Olivie Blake"
+    ],
+    "recipePairings": [
+      "Earl Grey tea with scones",
+      "Dark chocolate and red wine",
+      "Roasted root vegetables",
+      "Herb-crusted lamb",
+      "Mulled wine and cheese platters"
+    ],
+    "mood": "Intellectual, mysterious, elegant",
+    "season": "Fall/Winter"
+  },
+  {
+    "id": 4,
+    "name": "Streetwear",
+    "description": "Streetwear originated from skate and hip-hop culture, evolving into a global fashion movement. It celebrates urban style, bold graphics, oversized silhouettes, and street art influences. Comfort meets edge in this dynamic aesthetic.",
+    "image": "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80",
+    "colorPalette": ["#FF0000", "#000000", "#FFFFFF", "#FFD700", "#FF4500"],
+    "outfitIdeas": [
+      "Oversized hoodies and cargo pants",
+      "Graphic tees and sneakers",
+      "Bucket hats and beanies",
+      "Layered chains and jewelry",
+      "Bomber jackets with patches"
+    ],
+    "bookRecommendations": [
+      "The Art of Streetwear by Emma McClendon",
+      "Streetwear: The Insider's Guide by Alex Badia",
+      "Can't Stop Won't Stop by Jeff Chang",
+      "Style Like U by Chloe Hilliard",
+      "Fresh Prince by Carlton Howard"
+    ],
+    "recipePairings": [
+      "Street tacos with bold spices",
+      "Energy drinks and protein bars",
+      "Bubble tea and boba",
+      "Korean fried chicken",
+      "Ramen bowls with extra toppings"
+    ],
+    "mood": "Energetic, confident, urban",
+    "season": "Year-round"
+  },
+  {
+    "id": 5,
+    "name": "Cozy Winter",
+    "description": "Cozy Winter embraces the comfort and warmth of the colder months. It's all about soft textures, warm beverages, and creating a sanctuary from the chill. Think fuzzy blankets, hot cocoa, and the joy of staying in.",
+      "image": "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80",
+    "colorPalette": ["#8B4513", "#DC143C", "#FF6347", "#F5DEB3", "#2F4F4F"],
+    "outfitIdeas": [
+      "Chunky knit sweaters and scarves",
+      "Thermal leggings and boots",
+      "Fleece-lined jackets",
+      "Wool socks and slippers",
+      "Turtlenecks and cardigans"
+    ],
+    "bookRecommendations": [
+      "The Winter People by Jennifer McMahon",
+      "Winter by Marissa Meyer",
+      "The Bear and the Nightingale by Katherine Arden",
+      "The Snow Child by Eowyn Ivey",
+      "Winter's Orbit by Everina Maxwell"
+    ],
+    "recipePairings": [
+      "Hot chocolate with marshmallows",
+      "Spiced apple cider",
+      "Creamy soups and stews",
+      "Gingerbread cookies",
+      "Mulled wine and hot toddies"
+    ],
+    "mood": "Warm, comforting, introspective",
+    "season": "Winter"
+    },
+    {
+      "id": 6,
+      "name": "Sneakers Take Center Stage",
+      "description": "Sneakers Take Center Stage celebrates the sneaker as the ultimate fashion statement. From vintage collectibles to limited-edition drops, this aesthetic is all about the perfect pair of kicks that elevate any outfit. It's about the culture, the community, and the endless possibilities of sneaker styling.",
+      "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80",
+      "colorPalette": ["#FF6B35", "#F7931E", "#FFD23F", "#06FFA5", "#1E3A8A"],
+      "outfitIdeas": ["Premium sneakers with tailored suits", "Athleisure sets with statement sneakers", "Streetwear looks with vintage finds", "Casual jeans and sneakers combos", "Sneaker matching sets and accessories"],
+      "bookRecommendations": ["Sneaker Wars by Barbara Smit", "The Sneaker Book by Tom Vanderbilt", "Kicks by Nicholas Smith", "Sneakers: The Complete Collectors Guide by Unorthodox Styles", "The Art of Sneaking by Ali Edwards"],
+      "recipePairings": ["Craft beer and pretzels", "Loaded nachos and energy drinks", "Street-style tacos", "Bubble tea and boba", "Protein smoothies and granola bars"],
+      "mood": "Energetic, trendy, expressive",
+      "season": "Year-round"
+    }
+  ]
