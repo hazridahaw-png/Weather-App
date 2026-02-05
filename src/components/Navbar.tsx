@@ -28,6 +28,9 @@ export default function Navbar({ cartCount, wishlistCount }: NavbarProps) {
             <Link className="nav-link" href="/styles">
               Stylepedia
             </Link>
+            <Link className="nav-link" href="/hairstyle-changer">
+              <i className="bi bi-magic"></i> AI Hairstyle
+            </Link>
             <Link className="nav-link" href="/wishlist">
               <i className="bi bi-heart"></i> Wishlist ({wishlistCount})
             </Link>

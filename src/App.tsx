@@ -16,6 +16,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Confirmation from "./pages/Confirmation";
 import Wishlist from "./pages/Wishlist";
+import HairstyleChanger from "./pages/HairstyleChanger";
 
 import type { Product, Article, Style, CartItem, WishlistItem, Customer, Order } from "./types";
 
@@ -212,6 +213,10 @@ export default function App() {
 
           <Route path="/confirmation">
             <Confirmation order={order} />
+          </Route>
+
+          <Route path="/hairstyle-changer">
+            <HairstyleChanger />
           </Route>
 
           <Route>

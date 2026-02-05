@@ -104,8 +104,29 @@ app.get('/api/styles/:id', (req, res) => {
   });
 });
 
+app.post('/api/hairstyle-change', async (req, res) => {
+  try {
+    const { image, hairstyle } = req.body;
+    
+    // For now, return a mock response - in production, integrate with AI API
+    // Example APIs to integrate: HairStyle AI, FaceApp, or similar services
+    
+    const mockResult = {
+      originalImage: image,
+      resultImage: image, // In production, this would be the processed image from AI API
+      hairstyle: hairstyle,
+      processingTime: "2.3 seconds",
+      message: "Hairstyle change processed successfully (mock response)"
+    };
+    
+    res.json(mockResult);
+  } catch (error) {
+    console.error('Hairstyle change error:', error);
+    res.status(500).json({ error: 'Failed to process hairstyle change' });
+  }
+});
+
 app.post('/api/orders', async (req, res) => {
-  const { items, customer } = req.body;
 
   try {
     // Calculate total
