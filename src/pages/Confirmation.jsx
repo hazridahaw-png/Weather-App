@@ -1,7 +1,6 @@
 import { Link } from "wouter";
-import type { Order } from "../types";
 
-export default function Confirmation({ order }: { order: Order | null }) {
+export default function Confirmation({ order }) {
   if (!order) {
     return (
       <div className="alert alert-warning">
@@ -31,7 +30,7 @@ export default function Confirmation({ order }: { order: Order | null }) {
 
       <h5>Items</h5>
       <ul className="list-group mb-3">
-        {order.items.map((item: CartItem) => (
+        {order.items.map((item) => (
           <li
             key={item.productId}
             className="list-group-item d-flex justify-content-between"

@@ -1,16 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "wouter";
-import type { Product } from "../types";
 
-interface ProductDetailsProps {
-  id: string;
-  products: Product[];
-  onAddToCart: (product: Product, qty: number) => void;
-  onAddToWishlist: (product: Product) => void;
-  isInWishlist: boolean;
-}
-
-export default function ProductDetails({ id, products, onAddToCart, onAddToWishlist, isInWishlist }: ProductDetailsProps) {
+export default function ProductDetails({ id, products, onAddToCart, onAddToWishlist, isInWishlist }) {
   const productId = Number(id);
   const product = useMemo(
     () => products.find((p) => p.id === productId),

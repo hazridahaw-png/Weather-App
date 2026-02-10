@@ -17,18 +17,17 @@ import Checkout from "./pages/Checkout";
 import Confirmation from "./pages/Confirmation";
 import Wishlist from "./pages/Wishlist";
 import HairstyleChanger from "./pages/HairstyleChanger";
-
-import type { Product, Article, Style, CartItem, WishlistItem, Customer, Order } from "./types";
+import Registration from "./pages/Registration";
 
 export default function App() {
   const [, setLocation] = useLocation();
 
-  const [products, setProducts] = useState<Product[]>([]);
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [styles, setStyles] = useState<Style[]>([]);
-  const [cart, setCart] = useState<CartItem[]>([]); // { productId, name, price, qty, image }
-  const [wishlist, setWishlist] = useState<WishlistItem[]>([]); // { productId, name, price, image }
-  const [order, setOrder] = useState<Order | null>(null);
+  const [products, setProducts] = useState([]);
+  const [articles, setArticles] = useState([]);
+  const [styles, setStyles] = useState([]);
+  const [cart, setCart] = useState([]); // { productId, name, price, qty, image }
+  const [wishlist, setWishlist] = useState([]); // { productId, name, price, image }
+  const [order, setOrder] = useState(null);
 
   useEffect(() => {
     async function load() {
@@ -42,7 +41,7 @@ export default function App() {
     load();
   }, []);
 
-  function addToCart(product: Product, qty = 1) {
+  function addToCart(product, qty = 1) {
     if (!product) return;
 
     setCart((prev) => {
@@ -65,7 +64,7 @@ export default function App() {
     });
   }
 
-  function updateQty(productId: number, nextQty: number) {
+  function updateQty(productId, nextQty) {
     const safeQty = Number.isFinite(nextQty) ? nextQty : 1;
 
     setCart((prev) => {
@@ -76,7 +75,7 @@ export default function App() {
     });
   }
 
-  function removeFromCart(productId: number) {
+    function removeFromCart(productId) {
     setCart((prev) => prev.filter((x) => x.productId !== productId));
   }
 
@@ -84,7 +83,7 @@ export default function App() {
     setCart([]);
   }
 
-  function addToWishlist(product: Product) {
+  function addToWishlist(product) {
     if (!product) return;
 
     setWishlist((prev) => {
@@ -102,7 +101,7 @@ export default function App() {
     });
   }
 
-  function removeFromWishlist(productId: number) {
+  function removeFromWishlist(productId) {
     setWishlist((prev) => prev.filter((x) => x.productId !== productId));
   }
 
@@ -113,7 +112,7 @@ export default function App() {
     return { subtotal, shippingFee, grandTotal };
   }, [cart]);
 
-  function placeOrder(customer: Customer) {
+  function placeOrder(customer) {
     // Send order to backend
     fetch('/api/orders', {
       method: 'POST',
@@ -184,7 +183,7 @@ export default function App() {
           <Route path="/styles/:id">
             {(params) => (
               <StyleDetails
-                style={styles.find(s => s.id === Number(params.id))!}
+                  style={styles.find(s => s.id === Number(params.id))}
               />
             )}
           </Route>
@@ -217,6 +216,10 @@ export default function App() {
 
           <Route path="/hairstyle-changer">
             <HairstyleChanger />
+          </Route>
+
+          <Route path="/registration">
+            <Registration />
           </Route>
 
           <Route>

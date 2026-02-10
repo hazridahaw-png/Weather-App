@@ -1,12 +1,6 @@
 import { Link } from "wouter";
-import type { Article } from "../types";
 
-interface ArticleDetailsProps {
-  id: string;
-  articles: Article[];
-}
-
-export default function ArticleDetails({ id, articles }: ArticleDetailsProps) {
+export default function ArticleDetails({ id, articles }) {
   const article = articles.find((a) => a.id === parseInt(id));
 
   if (!article) {

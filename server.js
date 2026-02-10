@@ -4,6 +4,8 @@ import cors from 'cors';
 import Stripe from 'stripe';
 import dotenv from 'dotenv';
 import session from 'express-session';
+import Replicate from 'replicate';
+import bcrypt from 'bcryptjs';
 
 console.log('Starting server...');
 dotenv.config();
@@ -11,6 +13,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const replicate = new Replicate({
+  auth: process.env.REPLICATE_API_TOKEN,
+});
 
 // Middleware
 app.use(cors());
@@ -177,6 +182,40 @@ app.post('/api/orders', async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+// User registration
+app.post('/api/register', async (req, res) => {
+  const { firstName, lastName, email, password } = req.body;
+
+  if (!firstName || !lastName || !email || !password) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  try {
+    // Check if user already exists
+    const checkQuery = 'SELECT id FROM users WHERE email = ?';
+    db.query(checkQuery, [email], async (err, results) => {
+      if (err) return res.status(500).json({ message: 'Database error' });
+
+      if (results.length > 0) {
+        return res.status(400).json({ message: 'Email already registered' });
+      }
+
+      // Hash password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Insert user
+      const insertQuery = 'INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)';
+      db.query(insertQuery, [firstName, lastName, email, hashedPassword], (err, result) => {
+        if (err) return res.status(500).json({ message: 'Error creating account' });
+
+        res.status(201).json({ message: 'Account created successfully' });
+      });
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
   }
 });
 

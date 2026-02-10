@@ -1,11 +1,6 @@
 import { Link } from "wouter";
-import type { Style } from "../types";
 
-interface StyleDetailsProps {
-  style: Style;
-}
-
-export default function StyleDetails({ style }: StyleDetailsProps) {
+export default function StyleDetails({ style }) {
   return (
     <div className="container py-4">
       <nav aria-label="breadcrumb" className="mb-4">

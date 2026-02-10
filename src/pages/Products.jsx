@@ -1,15 +1,7 @@
 import { useMemo, useState } from "react";
 import ProductCard from "../components/ProductCard";
-import type { Product, WishlistItem } from "../types";
 
-interface ProductsProps {
-  products: Product[];
-  onAddToCart: (product: Product, qty: number) => void;
-  onAddToWishlist: (product: Product) => void;
-  wishlist: WishlistItem[];
-}
-
-export default function Products({ products, onAddToCart, onAddToWishlist, wishlist }: ProductsProps) {
+export default function Products({ products, onAddToCart, onAddToWishlist, wishlist }) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [veganOnly, setVeganOnly] = useState(false);

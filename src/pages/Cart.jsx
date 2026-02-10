@@ -1,21 +1,7 @@
 import { Link } from "wouter";
 import CartItem from "../components/CartItem";
-import type { CartItem as CartItemType } from "../types";
 
-interface Totals {
-  subtotal: number;
-  shippingFee: number;
-  grandTotal: number;
-}
-
-interface CartProps {
-  cart: CartItemType[];
-  totals: Totals;
-  onUpdateQty: (productId: number, qty: number) => void;
-  onRemove: (productId: number) => void;
-}
-
-export default function Cart({ cart, totals, onUpdateQty, onRemove }: CartProps) {
+export default function Cart({ cart, totals, onUpdateQty, onRemove }) {
   if (cart.length === 0) {
     return (
       <div className="alert alert-info">

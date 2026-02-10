@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const HairstyleChanger: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [selectedHairstyle, setSelectedHairstyle] = useState<string>('');
-  const [resultImage, setResultImage] = useState<string | null>(null);
+const HairstyleChanger = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedHairstyle, setSelectedHairstyle] = useState('');
+  const [resultImage, setResultImage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   const hairstyles = [
     { id: 'long_wavy', name: 'Long Wavy Hair', description: 'Flowing waves for a romantic look' },
@@ -21,12 +21,12 @@ const HairstyleChanger: React.FC = () => {
     { id: 'brown_layers', name: 'Brown Layered Cut', description: 'Rich brown with face-framing layers' }
   ];
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (event) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setSelectedImage(e.target?.result as string);
+          setSelectedImage(e.target?.result);
         setResultImage(null);
         setError(null);
       };
@@ -165,7 +165,7 @@ const HairstyleChanger: React.FC = () => {
                   <div className="col-md-6">
                     <h6>Original</h6>
                     <img
-                      src={selectedImage!}
+                        src={selectedImage}
                       alt="Original"
                       className="img-fluid rounded"
                       style={{ maxHeight: '300px' }}

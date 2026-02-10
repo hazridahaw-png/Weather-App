@@ -1,20 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "wouter";
-import type { CartItem, Customer } from "../types";
 
-interface Totals {
-  subtotal: number;
-  shippingFee: number;
-  grandTotal: number;
-}
-
-interface CheckoutProps {
-  cart: CartItem[];
-  totals: Totals;
-  onPlaceOrder: (customer: Customer) => void;
-}
-
-export default function Checkout({ cart, totals, onPlaceOrder }: CheckoutProps) {
+export default function Checkout({ cart, totals, onPlaceOrder }) {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -37,7 +24,7 @@ export default function Checkout({ cart, totals, onPlaceOrder }: CheckoutProps) 
     );
   }
 
-  function submit(e: React.FormEvent) {
+  function submit(e) {
     e.preventDefault();
     if (!canSubmit) return;
 

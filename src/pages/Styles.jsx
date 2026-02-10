@@ -1,12 +1,7 @@
 import { useMemo, useState } from "react";
 import StyleCard from "../components/StyleCard";
-import type { Style } from "../types";
 
-interface StylesProps {
-  styles: Style[];
-}
-
-export default function Styles({ styles }: StylesProps) {
+export default function Styles({ styles }) {
   const [search, setSearch] = useState("");
   const [season, setSeason] = useState("All");
 

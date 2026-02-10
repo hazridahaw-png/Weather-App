@@ -1,9 +1,8 @@
 import axios from "axios";
-import type { Style } from "../types";
 
 const API_BASE_URL = '/api';
 
-export async function fetchStyles(): Promise<Style[]> {
+export async function fetchStyles() {
   try {
     const response = await axios.get(`${API_BASE_URL}/styles`);
     return response.data;
@@ -14,7 +13,7 @@ export async function fetchStyles(): Promise<Style[]> {
   }
 }
 
-export async function fetchStyle(id: number): Promise<Style | undefined> {
+export async function fetchStyle(id) {
   try {
     const response = await axios.get(`${API_BASE_URL}/styles/${id}`);
     return response.data;

@@ -1,11 +1,6 @@
 import { Link } from "wouter";
-import type { Style } from "../types";
 
-interface StyleCardProps {
-  style: Style;
-}
-
-export default function StyleCard({ style }: StyleCardProps) {
+export default function StyleCard({ style }) {
   return (
     <div className="card h-100">
       <img

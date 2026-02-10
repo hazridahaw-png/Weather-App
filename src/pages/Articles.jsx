@@ -1,12 +1,7 @@
 import { useMemo, useState } from "react";
 import ArticleCard from "../components/ArticleCard";
-import type { Article } from "../types";
 
-interface ArticlesProps {
-  articles: Article[];
-}
-
-export default function Articles({ articles }: ArticlesProps) {
+export default function Articles({ articles }) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
 

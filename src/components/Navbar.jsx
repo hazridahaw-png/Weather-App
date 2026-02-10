@@ -1,11 +1,6 @@
 import { Link } from "wouter";
 
-interface NavbarProps {
-  cartCount: number;
-  wishlistCount: number;
-}
-
-export default function Navbar({ cartCount, wishlistCount }: NavbarProps) {
+export default function Navbar({ cartCount, wishlistCount }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
       <div className="container">
@@ -18,7 +13,7 @@ export default function Navbar({ cartCount, wishlistCount }: NavbarProps) {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarNav">
-          <div className="navbar-nav ms-auto">
+          <div className="navbar-nav me-auto">
             <Link className="nav-link" href="/products">
               Products
             </Link>
@@ -31,6 +26,8 @@ export default function Navbar({ cartCount, wishlistCount }: NavbarProps) {
             <Link className="nav-link" href="/hairstyle-changer">
               <i className="bi bi-magic"></i> AI Hairstyle
             </Link>
+          </div>
+          <div className="navbar-nav ms-auto">
             <Link className="nav-link" href="/wishlist">
               <i className="bi bi-heart"></i> Wishlist ({wishlistCount})
             </Link>
@@ -40,6 +37,14 @@ export default function Navbar({ cartCount, wishlistCount }: NavbarProps) {
             <Link className="nav-link" href="/checkout">
               Checkout
             </Link>
+            <div className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Account
+              </a>
+              <ul className="dropdown-menu" aria-labelledby="accountDropdown">
+                <li><Link className="dropdown-item" href="/registration">Register</Link></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

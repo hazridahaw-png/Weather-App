@@ -1,11 +1,6 @@
 import { Link } from "wouter";
-import type { Article } from "../types";
 
-interface ArticleCardProps {
-  article: Article;
-}
-
-export default function ArticleCard({ article }: ArticleCardProps) {
+export default function ArticleCard({ article }) {
   return (
     <div className="card h-100">
       <img

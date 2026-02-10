@@ -1,12 +1,5 @@
-import type { CartItem } from "../types";
 
-interface CartItemProps {
-  item: CartItem;
-  onUpdateQty: (productId: number, qty: number) => void;
-  onRemove: (productId: number) => void;
-}
-
-export default function CartItem({ item, onUpdateQty, onRemove }: CartItemProps) {
+export default function CartItem({ item, onUpdateQty, onRemove }) {
   return (
     <div className="d-flex align-items-center gap-3 border rounded p-2 mb-2">
       <img

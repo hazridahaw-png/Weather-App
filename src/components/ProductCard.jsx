@@ -1,14 +1,6 @@
 import { Link } from "wouter";
-import type { Product } from "../types";
 
-interface ProductCardProps {
-  product: Product;
-  onAddToCart: (product: Product, qty: number) => void;
-  onAddToWishlist: (product: Product) => void;
-  isInWishlist: boolean;
-}
-
-export default function ProductCard({ product, onAddToCart, onAddToWishlist, isInWishlist }: ProductCardProps) {
+export default function ProductCard({ product, onAddToCart, onAddToWishlist, isInWishlist }) {
   return (
     <div className="card h-100">
       <div className="position-relative">

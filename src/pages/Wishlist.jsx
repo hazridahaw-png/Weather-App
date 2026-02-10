@@ -1,14 +1,6 @@
-import type { WishlistItem, Product } from "../types";
 
-interface WishlistProps {
-  wishlist: WishlistItem[];
-  onRemove: (productId: number) => void;
-  onAddToCart: (product: Product, qty?: number) => void;
-  products: Product[];
-}
-
-export default function Wishlist({ wishlist, onRemove, onAddToCart, products }: WishlistProps) {
-  const getProductDetails = (productId: number) => {
+export default function Wishlist({ wishlist, onRemove, onAddToCart, products }) {
+  const getProductDetails = (productId) => {
     return products.find(p => p.id === productId);
   };
 
