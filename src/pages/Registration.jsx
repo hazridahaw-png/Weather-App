@@ -29,13 +29,39 @@ export default function Registration() {
   const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-    // Simulate registration without API call
-    setTimeout(() => {
-      setSuccessMessage('You have successfully registered!');
-      setSubmitError('');
-      resetForm();
-      setSubmitting(false);
-    }, 1000); // Simulate network delay
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+          password: values.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSuccessMessage(data.message || 'Account created successfully!');
+        setSubmitError('');
+        resetForm();
+        // Redirect to login after successful registration
+        setTimeout(() => {
+          setLocation('/login');
+        }, 2000);
+      } else {
+        setSubmitError(data.message || 'Registration failed');
+        setSuccessMessage('');
+      }
+    } catch (error) {
+      setSubmitError('Network error. Please try again.');
+      setSuccessMessage('');
+    }
+    setSubmitting(false);
   };
 
   return (

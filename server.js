@@ -356,6 +356,44 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
+// User login
+app.post('/api/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required' });
+  }
+
+  try {
+    // Find user
+    const query = 'SELECT id, first_name, last_name, email, password FROM users WHERE email = ?';
+    db.query(query, [email], async (err, results) => {
+      if (err) return res.status(500).json({ message: 'Database error' });
+
+      if (results.length === 0) {
+        return res.status(401).json({ message: 'Invalid email or password' });
+      }
+
+      const user = results[0];
+
+      // Check password
+      const isValidPassword = await bcrypt.compare(password, user.password);
+      if (!isValidPassword) {
+        return res.status(401).json({ message: 'Invalid email or password' });
+      }
+
+      // Return user data (without password)
+      const { password: _, ...userWithoutPassword } = user;
+      res.json({
+        message: 'Login successful',
+        user: userWithoutPassword
+      });
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Admin authentication middleware
 function requireAuth(req, res, next) {
   if (req.session.admin) {

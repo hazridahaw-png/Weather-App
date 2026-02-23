@@ -18,6 +18,7 @@ import Confirmation from "./pages/Confirmation";
 import Wishlist from "./pages/Wishlist";
 import HairstyleChanger from "./pages/HairstyleChanger";
 import Registration from "./pages/Registration";
+import Login from "./pages/Login";
 import Curator from "./pages/Curator";
 
 export default function App() {
@@ -217,6 +218,10 @@ export default function App() {
 
           <Route path="/hairstyle-changer">
             <HairstyleChanger />
+          </Route>
+
+          <Route path="/login">
+            <Login />
           </Route>
 
           <Route path="/registration">
