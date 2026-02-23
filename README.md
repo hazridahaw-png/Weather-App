@@ -1,8 +1,14 @@
-# Daily-Dose Lifestyle App
+# Daily Dose - AI-Powered Lifestyle Platform
 
-A comprehensive lifestyle and fashion application built with React, TypeScript, and Vite. Features a Stylepedia with aesthetic guides, e-commerce functionality, and admin management.
+An AI-powered lifestyle platform that curates personalized recommendations for reading, fashion, and cooking based on your mood, energy levels, and aesthetic preferences. Features a comprehensive Stylepedia, e-commerce functionality, and intelligent lifestyle curation.
 
-## Features
+## ✨ Features
+
+### 🤖 AI Lifestyle Curator
+- **Personalized Recommendations**: Get daily suggestions for what to read, wear, and cook based on your current mood, energy level, and time of day
+- **Mood-Based Curation**: Interactive sliders for mood (😢 Sad to 😊 Happy) and energy (🪫 Low to ⚡ High)
+- **AI-Powered**: Uses Replicate AI to generate contextual recommendations
+- **Real-time Feedback**: Instant suggestions with beautiful card layouts
 
 ### 🎨 Stylepedia
 - **6 Unique Aesthetic Styles**: Cottagecore, Minimalist, Dark Academia, Streetwear, Cozy Winter, and Sneakers Take Center Stage
@@ -15,27 +21,38 @@ A comprehensive lifestyle and fashion application built with React, TypeScript, 
 - Order management system
 - Stripe payment integration (commented out for testing)
 
+### 👤 User Authentication
+- User registration and login system
+- Secure password hashing with bcrypt
+- Session management with localStorage
+- Protected user accounts
+
 ### 👨‍💼 Admin Panel
 - Order management dashboard
 - Product inventory control
-- **Article content management** (Create, Read, Update, Delete, View, Duplicate)
-- **Style guide management** (Create, Read, Update, Delete, View, Duplicate)
+- Article content management (Create, Read, Update, Delete, View, Duplicate)
+- Style guide management (Create, Read, Update, Delete, View, Duplicate)
 - Analytics and reporting
 - Secure authentication
 
+### 🔔 Notifications
+- Web push notification setup for daily recommendations
+- Service worker integration for background notifications
+
 ### 🛠️ Tech Stack
-- **Frontend**: React + TypeScript + Vite
+- **Frontend**: React + Vite + Bootstrap
 - **Backend**: Node.js + Express
 - **Database**: MySQL
-- **Styling**: Bootstrap
+- **AI**: Replicate API for content generation
+- **Authentication**: bcrypt for password hashing
 - **State Management**: React hooks
 - **API**: RESTful endpoints
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js (v16+)
-- MySQL
+- MySQL/MariaDB
 - npm or yarn
 
 ### Installation
@@ -53,14 +70,24 @@ A comprehensive lifestyle and fashion application built with React, TypeScript, 
 
 3. **Set up the database**
    ```bash
-   # Import the database schema
+   # Start MySQL/MariaDB service
+   sudo service mysql start  # or mariadb
+
+   # Create database and tables
    mysql -u root -p < database.sql
    ```
 
 4. **Configure environment variables**
    ```bash
    cp .env.example .env
-   # Edit .env with your database credentials
+   # Edit .env with your credentials:
+   # DB_HOST=localhost
+   # DB_USER=root
+   # DB_PASSWORD=your_password
+   # DB_NAME=lifestyle_shop
+   # REPLICATE_API_TOKEN=your_replicate_token
+   # STRIPE_SECRET_KEY=your_stripe_key
+   # SESSION_SECRET=your_session_secret
    ```
 
 5. **Start the development servers**
@@ -77,63 +104,102 @@ A comprehensive lifestyle and fashion application built with React, TypeScript, 
    - Backend API: http://localhost:5000
    - Admin Panel: http://localhost:5000/admin
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 src/
 ├── components/          # Reusable UI components
-│   ├── StyleCard.tsx   # Style preview cards
-│   ├── Navbar.tsx      # Navigation component
+│   ├── ProductCard.jsx  # Product display cards
+│   ├── StyleCard.jsx    # Style preview cards
+│   ├── Navbar.jsx       # Navigation component
 │   └── ...
-├── pages/              # Page components
-│   ├── Styles.tsx      # Stylepedia main page
-│   ├── StyleDetails.tsx # Individual style pages
+├── pages/               # Page components
+│   ├── Home.jsx         # Landing page with mood widgets
+│   ├── Curator.jsx      # AI lifestyle curator
+│   ├── Login.jsx        # User login page
+│   ├── Registration.jsx # User registration
+│   ├── Products.jsx     # Product catalog
+│   ├── ProductDetails.jsx # Individual product pages
+│   ├── Articles.jsx     # Article/blog listing
+│   ├── ArticleDetails.jsx # Individual article pages
+│   ├── Styles.jsx       # Stylepedia main page
+│   ├── StyleDetails.jsx # Individual style pages
+│   ├── Cart.jsx         # Shopping cart
+│   ├── Checkout.jsx     # Payment checkout
+│   ├── Wishlist.jsx     # User wishlist
+│   ├── HairstyleChanger.jsx # AI hairstyle tool
 │   └── ...
-├── services/           # API service functions
-│   ├── styleApi.ts     # Style data fetching
+├── services/            # API service functions
+│   ├── productApi.js    # Product data fetching
+│   ├── articleApi.js    # Article data fetching
+│   ├── styleApi.js      # Style data fetching
 │   └── ...
-└── types.ts           # TypeScript type definitions
+└── App.jsx             # Main app component
 
 public/
+├── sw.js              # Service worker for notifications
 ├── json/
-│   └── styles.json     # Static style data fallback
+│   ├── articles.json   # Static article data
+│   ├── products.json   # Static product data
+│   └── styles.json     # Static style data
 └── ...
 
 views/                  # EJS templates for admin panel
 ├── login.ejs
 ├── orders.ejs
+├── products.ejs
+├── articles.ejs
+├── styles.ejs
 └── ...
+
+server.js               # Express backend server
+database.sql            # MySQL database schema
+vite.config.js          # Vite configuration with API proxy
 ```
 
-## API Endpoints
+## 🔌 API Endpoints
 
-### Styles
+### 🤖 AI Recommendations
+- `POST /api/recommendations` - Get personalized lifestyle suggestions based on mood, energy, and time
+
+### 👤 Authentication
+- `POST /api/register` - User registration
+- `POST /api/login` - User login
+
+### 🎨 Styles
 - `GET /api/styles` - Get all styles
 - `GET /api/styles/:id` - Get style by ID
+- `POST /api/styles` - Create new style (admin)
+- `PUT /api/styles/:id` - Update style (admin)
+- `DELETE /api/styles/:id` - Delete style (admin)
 
-### Products
+### 🛒 Products
 - `GET /api/products` - Get all products
 - `GET /api/products/:id` - Get product by ID
+- `POST /api/products` - Create new product (admin)
+- `PUT /api/products/:id` - Update product (admin)
+- `DELETE /api/products/:id` - Delete product (admin)
 
-### Content
+### 📝 Content
 - `GET /api/articles` - Get all articles
 - `GET /api/articles/:id` - Get article by ID
-- `POST /api/articles` - Create new article
-- `PUT /api/articles/:id` - Update article
-- `DELETE /api/articles/:id` - Delete article
-- `GET /api/styles` - Get all styles
-- `GET /api/styles/:id` - Get style by ID
-- `POST /api/styles` - Create new style
-- `PUT /api/styles/:id` - Update style
-- `DELETE /api/styles/:id` - Delete style
+- `POST /api/articles` - Create new article (admin)
+- `PUT /api/articles/:id` - Update article (admin)
+- `DELETE /api/articles/:id` - Delete article (admin)
 
-### Orders
+### 🛍️ Orders
 - `POST /api/orders` - Create new order
 
-### Admin
+### 🎨 AI Features
+- `POST /api/hairstyle-change` - AI hairstyle transformation
+
+### 👨‍💼 Admin
 - `GET /admin/login` - Admin login page
-- `GET /admin/orders` - Order management
+- `POST /admin/login` - Admin authentication
+- `GET /admin/logout` - Admin logout
+- `GET /admin/orders` - Order management dashboard
 - `GET /admin/products` - Product management
+- `POST /admin/products/:id/stock` - Update product stock
 - `GET /admin/articles` - Article management
 - `GET /admin/styles` - Style management
 
@@ -147,12 +213,12 @@ views/                  # EJS templates for admin panel
 
 ### Database Schema
 The application uses MySQL with the following main tables:
-- `products` - Product catalog
+- `users` - User accounts with authentication
+- `products` - Product catalog with vegan/organic flags
 - `orders` - Customer orders
 - `order_items` - Order line items
-- `articles` - Blog articles and content
-- `styles` - Aesthetic style guides
-- `users` - User accounts
+- `articles` - Blog articles and lifestyle content
+- `styles` - Aesthetic style guides with detailed profiles
 
 ## Contributing
 
@@ -166,39 +232,17 @@ The application uses MySQL with the following main tables:
 
 This project is licensed under the MIT License.
 
-## Future Enhancements
+## 🚀 Future Enhancements
 
-- [ ] AI Hairstyle Changer integration
-- [ ] User authentication and profiles
-- [ ] Social sharing features
+- [x] AI Lifestyle Curator with mood-based recommendations
+- [x] User authentication and profiles
+- [x] AI Hairstyle Changer integration
+- [ ] Social sharing features for recommendations
 - [ ] Mobile app version
 - [ ] Advanced search and filtering
-- [ ] Style recommendations based on user preferences
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
->>>>>>> Stashed changes
+- [ ] Personalized style recommendations based on user history
+- [ ] Subscription system for premium AI features
+- [ ] Weather-based recommendation integration
+- [ ] Community features and user-generated content
+- [ ] Integration with external recipe APIs
+- [ ] Push notification scheduling for daily recommendations
