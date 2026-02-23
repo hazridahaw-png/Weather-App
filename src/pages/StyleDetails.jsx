@@ -1,6 +1,16 @@
 import { Link } from "wouter";
 
 export default function StyleDetails({ style }) {
+  if (!style) {
+    return (
+      <div className="container py-4">
+        <div className="alert alert-warning">
+          Style not found. Please check the URL or return to the <Link href="/styles">styles page</Link>.
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container py-4">
       <nav aria-label="breadcrumb" className="mb-4">

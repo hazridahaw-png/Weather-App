@@ -18,6 +18,7 @@ import Confirmation from "./pages/Confirmation";
 import Wishlist from "./pages/Wishlist";
 import HairstyleChanger from "./pages/HairstyleChanger";
 import Registration from "./pages/Registration";
+import Curator from "./pages/Curator";
 
 export default function App() {
   const [, setLocation] = useLocation();
@@ -220,6 +221,10 @@ export default function App() {
 
           <Route path="/registration">
             <Registration />
+          </Route>
+
+          <Route path="/curator">
+            <Curator />
           </Route>
 
           <Route>

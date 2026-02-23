@@ -18,6 +18,8 @@ A comprehensive lifestyle and fashion application built with React, TypeScript, 
 ### 👨‍💼 Admin Panel
 - Order management dashboard
 - Product inventory control
+- **Article content management** (Create, Read, Update, Delete, View, Duplicate)
+- **Style guide management** (Create, Read, Update, Delete, View, Duplicate)
 - Analytics and reporting
 - Secure authentication
 
@@ -113,6 +115,18 @@ views/                  # EJS templates for admin panel
 - `GET /api/products` - Get all products
 - `GET /api/products/:id` - Get product by ID
 
+### Content
+- `GET /api/articles` - Get all articles
+- `GET /api/articles/:id` - Get article by ID
+- `POST /api/articles` - Create new article
+- `PUT /api/articles/:id` - Update article
+- `DELETE /api/articles/:id` - Delete article
+- `GET /api/styles` - Get all styles
+- `GET /api/styles/:id` - Get style by ID
+- `POST /api/styles` - Create new style
+- `PUT /api/styles/:id` - Update style
+- `DELETE /api/styles/:id` - Delete style
+
 ### Orders
 - `POST /api/orders` - Create new order
 
@@ -120,6 +134,8 @@ views/                  # EJS templates for admin panel
 - `GET /admin/login` - Admin login page
 - `GET /admin/orders` - Order management
 - `GET /admin/products` - Product management
+- `GET /admin/articles` - Article management
+- `GET /admin/styles` - Style management
 
 ## Development
 
@@ -134,6 +150,9 @@ The application uses MySQL with the following main tables:
 - `products` - Product catalog
 - `orders` - Customer orders
 - `order_items` - Order line items
+- `articles` - Blog articles and content
+- `styles` - Aesthetic style guides
+- `users` - User accounts
 
 ## Contributing
 

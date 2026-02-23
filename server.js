@@ -80,13 +80,27 @@ app.get('/api/styles', (req, res) => {
     if (err) return res.status(500).json({ error: err.message });
     
     // Parse JSON fields back to arrays
-    const styles = results.map(style => ({
-      ...style,
-      colorPalette: JSON.parse(style.color_palette || '[]'),
-      outfitIdeas: JSON.parse(style.outfit_ideas || '[]'),
-      bookRecommendations: JSON.parse(style.book_recommendations || '[]'),
-      recipePairings: JSON.parse(style.recipe_pairings || '[]')
-    }));
+    const styles = results.map(style => {
+      const parseField = (field) => {
+        if (!field || typeof field !== 'string') return [];
+        if (field.trim() === '') return [];
+        try {
+          // Try to parse as JSON first
+          return JSON.parse(field);
+        } catch {
+          // If JSON parsing fails, split by comma
+          return field.split(',').map(s => s.trim()).filter(s => s);
+        }
+      };
+      
+      return {
+        ...style,
+        colorPalette: parseField(style.color_palette),
+        outfitIdeas: parseField(style.outfit_ideas),
+        bookRecommendations: parseField(style.book_recommendations),
+        recipePairings: parseField(style.recipe_pairings)
+      };
+    });
     
     res.json(styles);
   });
@@ -109,6 +123,90 @@ app.get('/api/styles/:id', (req, res) => {
   });
 });
 
+app.get('/api/articles', (req, res) => {
+  db.query('SELECT * FROM articles ORDER BY date DESC', (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(results);
+  });
+});
+
+app.get('/api/articles/:id', (req, res) => {
+  const { id } = req.params;
+  db.query('SELECT * FROM articles WHERE id = ?', [id], (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (results.length === 0) return res.status(404).json({ error: 'Article not found' });
+    res.json(results[0]);
+  });
+});
+
+// Articles CRUD routes
+app.post('/api/articles', (req, res) => {
+  const { title, category, excerpt, content, image, date } = req.body;
+  db.query(
+    'INSERT INTO articles (title, category, excerpt, content, image, date) VALUES (?, ?, ?, ?, ?, ?)',
+    [title, category, excerpt, content, image, date],
+    (err, result) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json({ success: true, id: result.insertId });
+    }
+  );
+});
+
+app.put('/api/articles/:id', (req, res) => {
+  const { id } = req.params;
+  const { title, category, excerpt, content, image, date } = req.body;
+  db.query(
+    'UPDATE articles SET title = ?, category = ?, excerpt = ?, content = ?, image = ?, date = ? WHERE id = ?',
+    [title, category, excerpt, content, image, date, id],
+    (err) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json({ success: true });
+    }
+  );
+});
+
+app.delete('/api/articles/:id', (req, res) => {
+  const { id } = req.params;
+  db.query('DELETE FROM articles WHERE id = ?', [id], (err) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json({ success: true });
+  });
+});
+
+// Styles CRUD routes
+app.post('/api/styles', (req, res) => {
+  const { name, description, image, color_palette, outfit_ideas, book_recommendations, recipe_pairings, mood, season } = req.body;
+  db.query(
+    'INSERT INTO styles (name, description, image, color_palette, outfit_ideas, book_recommendations, recipe_pairings, mood, season) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [name, description, image, JSON.stringify(color_palette), JSON.stringify(outfit_ideas), JSON.stringify(book_recommendations), JSON.stringify(recipe_pairings), mood, season],
+    (err, result) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json({ success: true, id: result.insertId });
+    }
+  );
+});
+
+app.put('/api/styles/:id', (req, res) => {
+  const { id } = req.params;
+  const { name, description, image, color_palette, outfit_ideas, book_recommendations, recipe_pairings, mood, season } = req.body;
+  db.query(
+    'UPDATE styles SET name = ?, description = ?, image = ?, color_palette = ?, outfit_ideas = ?, book_recommendations = ?, recipe_pairings = ?, mood = ?, season = ? WHERE id = ?',
+    [name, description, image, JSON.stringify(color_palette), JSON.stringify(outfit_ideas), JSON.stringify(book_recommendations), JSON.stringify(recipe_pairings), mood, season, id],
+    (err) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json({ success: true });
+    }
+  );
+});
+
+app.delete('/api/styles/:id', (req, res) => {
+  const { id } = req.params;
+  db.query('DELETE FROM styles WHERE id = ?', [id], (err) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json({ success: true });
+  });
+});
+
 app.post('/api/hairstyle-change', async (req, res) => {
   try {
     const { image, hairstyle } = req.body;
@@ -128,6 +226,45 @@ app.post('/api/hairstyle-change', async (req, res) => {
   } catch (error) {
     console.error('Hairstyle change error:', error);
     res.status(500).json({ error: 'Failed to process hairstyle change' });
+  }
+});
+
+app.post('/api/recommendations', async (req, res) => {
+  try {
+    const { mood, energy, timeOfDay } = req.body;
+
+    // Use Replicate for AI-generated recommendations
+    const prompt = `Based on a person with mood level ${mood}/5 (1=sad, 5=happy), energy level ${energy}/5 (1=low, 5=high), and it's ${timeOfDay}, suggest one thing to read, one thing to wear, and one thing to cook today. Keep suggestions personalized and positive. Format as JSON: {"read": "...", "wear": "...", "cook": "..."}`;
+
+    const output = await replicate.run(
+      "meta/llama-2-70b-chat:02e509c789964a7ea8736978a43525956cd30b1c1f0dce0c0fca3351e4c006b",
+      {
+        input: {
+          prompt: prompt,
+          max_new_tokens: 200,
+          temperature: 0.7
+        }
+      }
+    );
+
+    // Parse the AI response (assuming it returns JSON-like text)
+    let recommendations;
+    try {
+      const responseText = output.join('').trim();
+      recommendations = JSON.parse(responseText);
+    } catch (parseError) {
+      // Fallback if parsing fails
+      recommendations = {
+        read: "A thoughtful book matching your current mood.",
+        wear: "Comfortable clothing that suits your energy level.",
+        cook: "A simple meal perfect for this time of day."
+      };
+    }
+
+    res.json(recommendations);
+  } catch (error) {
+    console.error('Recommendations error:', error);
+    res.status(500).json({ error: 'Failed to generate recommendations' });
   }
 });
 
@@ -324,6 +461,36 @@ app.post('/admin/products/:id/stock', requireAuth, (req, res) => {
   db.query('UPDATE products SET stock = ? WHERE id = ?', [stock, productId], (err) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ success: true });
+  });
+});
+
+app.get('/admin/articles', requireAuth, (req, res) => {
+  db.query('SELECT * FROM articles ORDER BY date DESC', (err, articles) => {
+    if (err) return res.status(500).send('Database error');
+    
+    const totalArticles = articles.length;
+    const categories = [...new Set(articles.map(a => a.category))].length;
+    
+    res.render('articles', { 
+      title: 'Article Management', 
+      articles,
+      totalArticles,
+      categories
+    });
+  });
+});
+
+app.get('/admin/styles', requireAuth, (req, res) => {
+  db.query('SELECT * FROM styles ORDER BY name', (err, styles) => {
+    if (err) return res.status(500).send('Database error');
+    
+    const totalStyles = styles.length;
+    
+    res.render('styles', { 
+      title: 'Style Management', 
+      styles,
+      totalStyles
+    });
   });
 });
 

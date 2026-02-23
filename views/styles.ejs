@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/admin/orders">Daily Dose Admin</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="/admin/orders">Orders</a>
+                <a class="nav-link" href="/admin/products">Products</a>
+                <a class="nav-link" href="/admin/articles">Articles</a>
+                <a class="nav-link active" href="/admin/styles">Styles</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/admin/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col">
+                <h1><%= title %></h1>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary" onclick="openStyleModal()">Add New Style</button>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Styles</h5>
+                        <h2><%= totalStyles %></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5>Style Management</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Mood</th>
+                                <th>Season</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% styles.forEach(style => { %>
+                            <tr>
+                                <td><%= style.id %></td>
+                                <td><%= style.name %></td>
+                                <td><%= style.description.substring(0, 100) %>...</td>
+                                <td><%= style.mood %></td>
+                                <td><%= style.season %></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" onclick="viewStyleDetails(<%= style.id %>, '<%= style.name.replace(/'/g, "\\'") %>', '<%= style.description.replace(/'/g, "\\'").substring(0, 100) %>', '<%= style.image %>', '<%= style.mood.replace(/'/g, "\\'") %>', '<%= style.season %>')">View</button>
+                                    <button class="btn btn-sm btn-warning" onclick="editStyle(<%= style.id %>, '<%= style.name.replace(/'/g, "\\'") %>', '<%= style.description.replace(/'/g, "\\'").substring(0, 100) %>', '<%= style.image %>', '<%= style.mood.replace(/'/g, "\\'") %>', '<%= style.season %>')">Edit</button>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteStyle(<%= style.id %>, '<%= style.name.replace(/'/g, "\\'") %>')">Delete</button>
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Style View Modal -->
+    <div class="modal fade" id="viewStyleModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewStyleModalTitle">Style Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <strong>Name:</strong> <span id="viewStyleName"></span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Mood:</strong> <span id="viewStyleMood"></span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Season:</strong> <span id="viewStyleSeason"></span>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Description:</strong><br>
+                                <p id="viewStyleDescription" class="mt-2"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <strong>Image:</strong><br>
+                                <img id="viewStyleImage" src="" alt="" class="img-fluid mt-2 rounded">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Additional Details:</strong>
+                        <div id="viewStyleDetails" class="mt-2 p-3 bg-light rounded">
+                            <!-- Additional style details will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Style Modal -->
+    <div class="modal fade" id="styleModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="styleModalTitle">Add New Style</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="styleForm">
+                    <div class="modal-body">
+                        <input type="hidden" id="styleId" name="id">
+                        <div class="mb-3">
+                            <label for="styleName" class="form-label">Name *</label>
+                            <input type="text" class="form-control" id="styleName" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="styleDescription" class="form-label">Description *</label>
+                            <textarea class="form-control" id="styleDescription" name="description" rows="4" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="styleImage" class="form-label">Image URL</label>
+                            <input type="url" class="form-control" id="styleImage" name="image">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="styleMood" class="form-label">Mood *</label>
+                                    <input type="text" class="form-control" id="styleMood" name="mood" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="styleSeason" class="form-label">Season *</label>
+                                    <select class="form-control" id="styleSeason" name="season" required>
+                                        <option value="">Select Season</option>
+                                        <option value="Spring/Summer">Spring/Summer</option>
+                                        <option value="Fall/Winter">Fall/Winter</option>
+                                        <option value="Winter">Winter</option>
+                                        <option value="Year-round">Year-round</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Additional Details (Optional)</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="colorPalette" class="form-label">Color Palette (comma-separated)</label>
+                                    <input type="text" class="form-control" id="colorPalette" name="color_palette" placeholder="#8B7355, #D4A574, #F5F5DC">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="outfitIdeas" class="form-label">Outfit Ideas (comma-separated)</label>
+                                    <input type="text" class="form-control" id="outfitIdeas" name="outfit_ideas" placeholder="Floral sundresses, Denim overalls">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="saveStyleBtn">Save Style</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const styleModal = new bootstrap.Modal(document.getElementById('styleModal'));
+        const styleForm = document.getElementById('styleForm');
+
+        function openStyleModal() {
+            document.getElementById('styleModalTitle').textContent = 'Add New Style';
+            document.getElementById('styleId').value = '';
+            styleForm.reset();
+            styleModal.show();
+        }
+
+        function editStyle(id, name, description, image, mood, season) {
+            document.getElementById('styleModalTitle').textContent = 'Edit Style';
+            document.getElementById('styleId').value = id;
+            document.getElementById('styleName').value = name;
+            document.getElementById('styleDescription').value = description;
+            document.getElementById('styleImage').value = image;
+            document.getElementById('styleMood').value = mood;
+            document.getElementById('styleSeason').value = season;
+            // Note: For simplicity, we're not editing the complex JSON fields in this basic implementation
+            styleModal.show();
+        }
+
+        function viewStyleDetails(id, name, description, image, mood, season) {
+            document.getElementById('viewStyleModalTitle').textContent = name;
+            document.getElementById('viewStyleName').textContent = name;
+            document.getElementById('viewStyleMood').textContent = mood;
+            document.getElementById('viewStyleSeason').textContent = season;
+            document.getElementById('viewStyleDescription').textContent = description;
+            
+            const imageElement = document.getElementById('viewStyleImage');
+            if (image) {
+                imageElement.src = image;
+                imageElement.style.display = 'block';
+            } else {
+                imageElement.style.display = 'none';
+            }
+            
+            // For now, we'll show basic info. In a full implementation, you'd fetch complete style data
+            document.getElementById('viewStyleDetails').innerHTML = `
+                <p><strong>Style ID:</strong> ${id}</p>
+                <p><strong>Category:</strong> Aesthetic Guide</p>
+                <p><strong>Status:</strong> Active</p>
+            `;
+            
+            const viewModal = new bootstrap.Modal(document.getElementById('viewStyleModal'));
+            viewModal.show();
+        }
+
+        function viewStyle(styleId) {
+            // For backward compatibility, redirect to frontend
+            window.open(`http://localhost:5173/styles/${styleId}`, '_blank');
+        }
+
+        function deleteStyle(styleId, name) {
+            if (confirm(`Are you sure you want to delete "${name}"?`)) {
+                fetch(`/api/styles/${styleId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('Error deleting style: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    alert('Error deleting style: ' + error.message);
+                });
+            }
+        }
+
+        // Form submission handler
+        styleForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(styleForm);
+            const styleData = Object.fromEntries(formData);
+            const isEdit = styleData.id;
+            
+            // Convert comma-separated strings to arrays for JSON fields
+            if (styleData.color_palette) {
+                styleData.color_palette = styleData.color_palette.split(',').map(s => s.trim());
+            } else {
+                styleData.color_palette = [];
+            }
+            
+            if (styleData.outfit_ideas) {
+                styleData.outfit_ideas = styleData.outfit_ideas.split(',').map(s => s.trim());
+            } else {
+                styleData.outfit_ideas = [];
+            }
+            
+            // Set default values for other JSON fields if not editing
+            if (!isEdit) {
+                styleData.book_recommendations = [];
+                styleData.recipe_pairings = [];
+            }
+            
+            const url = isEdit ? `/api/styles/${styleData.id}` : '/api/styles';
+            const method = isEdit ? 'PUT' : 'POST';
+            
+            fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(styleData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    styleModal.hide();
+                    location.reload();
+                } else {
+                    alert('Error saving style: ' + data.error);
+                }
+            })
+            .catch(error => {
+                alert('Error saving style: ' + error.message);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -48,6 +48,19 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Articles table
+CREATE TABLE IF NOT EXISTS articles (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  category VARCHAR(100),
+  excerpt TEXT,
+  content TEXT,
+  image VARCHAR(500),
+  date DATE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 -- Styles table
 CREATE TABLE IF NOT EXISTS styles (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -82,3 +95,12 @@ INSERT INTO styles (name, description, image, color_palette, outfit_ideas, book_
 ('Streetwear', 'Streetwear originated from skate and hip-hop culture, evolving into a global fashion movement. It celebrates urban style, bold graphics, oversized silhouettes, and street art influences. Comfort meets edge in this dynamic aesthetic.', 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80', '["#FF0000", "#000000", "#FFFFFF", "#FFD700", "#FF4500"]', '["Oversized hoodies and cargo pants", "Graphic tees and sneakers", "Bucket hats and beanies", "Layered chains and jewelry", "Bomber jackets with patches"]', '["The Art of Streetwear by Emma McClendon", "Streetwear: The Insider''s Guide by Alex Badia", "Can''t Stop Won''t Stop by Jeff Chang", "Style Like U by Chloe Hilliard", "Fresh Prince by Carlton Howard"]', '["Street tacos with bold spices", "Energy drinks and protein bars", "Bubble tea and boba", "Korean fried chicken", "Ramen bowls with extra toppings"]', 'Energetic, confident, urban', 'Year-round'),
 ('Cozy Winter', 'Cozy Winter embraces the comfort and warmth of the colder months. It''s all about soft textures, warm beverages, and creating a sanctuary from the chill. Think fuzzy blankets, hot cocoa, and the joy of staying in.', 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80', '["#8B4513", "#DC143C", "#FF6347", "#F5DEB3", "#2F4F4F"]', '["Chunky knit sweaters and scarves", "Thermal leggings and boots", "Fleece-lined jackets", "Wool socks and slippers", "Turtlenecks and cardigans"]', '["The Winter People by Jennifer McMahon", "Winter by Marissa Meyer", "The Bear and the Nightingale by Katherine Arden", "The Snow Child by Eowyn Ivey", "Winter''s Orbit by Everina Maxwell"]', '["Hot chocolate with marshmallows", "Spiced apple cider", "Creamy soups and stews", "Gingerbread cookies", "Mulled wine and hot toddies"]', 'Warm, comforting, introspective', 'Winter'),
 ('Sneakers Take Center Stage', 'Sneakers Take Center Stage celebrates the sneaker as the ultimate fashion statement. From vintage collectibles to limited-edition drops, this aesthetic is all about the perfect pair of kicks that elevate any outfit. It''s about the culture, the community, and the endless possibilities of sneaker styling.', 'https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80', '["#FF6B35", "#F7931E", "#FFD23F", "#06FFA5", "#1E3A8A"]', '["Premium sneakers with tailored suits", "Athleisure sets with statement sneakers", "Streetwear looks with vintage finds", "Casual jeans and sneakers combos", "Sneaker matching sets and accessories"]', '["Sneaker Wars by Barbara Smit", "The Sneaker Book by Tom Vanderbilt", "Kicks by Nicholas Smith", "Sneakers: The Complete Collectors Guide by Unorthodox Styles", "The Art of Sneaking by Ali Edwards"]', '["Craft beer and pretzels", "Loaded nachos and energy drinks", "Street-style tacos", "Bubble tea and boba", "Protein smoothies and granola bars"]', 'Energetic, trendy, expressive', 'Year-round');
+
+-- Insert sample articles
+INSERT INTO articles (title, category, excerpt, content, image, date) VALUES
+('Top Fashion Trends for 2026', 'Fashion', 'Discover the latest fashion trends that will define the upcoming year.', 'Full article content here...', 'https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80', '2026-02-04'),
+('Beauty Secrets from Asia', 'Beauty', 'Uncover the beauty routines and tips from top influencers in Asia.', 'Full article content here...', 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80', '2026-02-03'),
+('Hidden Gems in Southeast Asia', 'Travel', 'Explore lesser-known destinations that offer unique experiences.', 'Full article content here...', 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80', '2026-02-02'),
+('Delicious Street Food Adventures', 'Food', 'A guide to the best street food spots across Asia.', 'Full article content here...', 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80', '2026-02-01'),
+('Wellness and Mindfulness Tips', 'Wellness', 'Practical tips for maintaining a balanced and healthy lifestyle.', 'Full article content here...', 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80', '2026-01-31'),
+('Tech Gadgets for Modern Living', 'Tech', 'The latest gadgets that enhance your daily life.', 'Full article content here...', 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&h=360&q=80', '2026-01-30');
