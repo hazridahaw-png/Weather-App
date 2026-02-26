@@ -38,19 +38,22 @@ app.set('views', './views');
 app.use('/admin', express.static('public'));
 
 // Database connection
-const db = mysql.createConnection({
+const db = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || '',
-  database: process.env.DB_NAME || 'lifestyle_shop'
+  database: process.env.DB_NAME || 'lifestyle_shop',
+  connectionLimit: 10
 });
 
-console.log('Connecting to database...');
-db.connect((err) => {
+console.log('Database pool created...');
+
+// Test database connection
+db.query('SELECT 1', (err, results) => {
   if (err) {
-    console.error('Database connection failed:', err);
+    console.error('Database connection test failed:', err);
   } else {
-    console.log('Connected to MySQL database');
+    console.log('Database connection test successful');
   }
 });
 
@@ -271,6 +274,7 @@ app.post('/api/recommendations', async (req, res) => {
 app.post('/api/orders', async (req, res) => {
 
   try {
+    const { items, customer } = req.body;
     // Calculate total
     const total = items.reduce((sum, item) => sum + item.price * item.qty, 0) + 5; // + shipping
 

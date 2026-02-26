@@ -30,7 +30,7 @@ export default function ProductCard({ product, onAddToCart, onAddToWishlist, isI
           {product.organic && <span className="badge bg-info me-1">Organic</span>}
           <span className="badge bg-secondary">Sustainability: {product.sustainability_score}/10</span>
         </div>
-        <p className="mb-3">${product.price.toFixed(2)}</p>
+        <p className="mb-3">${Number(product.price).toFixed(2)}</p>
 
         <div className="mt-auto d-flex gap-2">
           <Link className="btn btn-outline-secondary btn-sm" href={`/products/${product.id}`}>

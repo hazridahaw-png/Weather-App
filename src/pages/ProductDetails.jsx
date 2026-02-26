@@ -40,7 +40,7 @@ export default function ProductDetails({ id, products, onAddToCart, onAddToWishl
           {product.organic && <span className="badge bg-info me-2">Organic</span>}
           <span className="badge bg-secondary">Sustainability: {product.sustainability_score}/10</span>
         </div>
-        <h4 className="mb-3">${product.price.toFixed(2)}</h4>
+        <h4 className="mb-3">${Number(product.price).toFixed(2)}</h4>
         <p>{product.description}</p>
         <p className="text-muted">Stock: {product.stock}</p>
         <p className="text-muted">Ingredients: {product.ingredients}</p>

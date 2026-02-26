@@ -16,7 +16,7 @@ export default function CartItem({ item, onUpdateQty, onRemove }) {
 
       <div className="flex-grow-1">
         <div className="fw-semibold">{item.name}</div>
-        <div className="text-muted">${item.price.toFixed(2)}</div>
+        <div className="text-muted">${Number(item.price).toFixed(2)}</div>
       </div>
 
       <div style={{ maxWidth: 110 }}>

@@ -142,7 +142,9 @@ export default function App() {
 
       <div className="container py-4">
         <Switch>
-          <Route path="/" component={Home} />
+          <Route path="/">
+            <Home />
+          </Route>
 
           <Route path="/products">
             <Products 
